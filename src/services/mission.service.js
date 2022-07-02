@@ -7,9 +7,9 @@ import axios from "axios";
 const API_URL = "http://localhost:8090/api/mission/";
 
 const saveMissionByUserId = (userId, missionStageHolder) =>{
-    return axios.post(API_URL + "save/" + userId,{
+    return axios.post(API_URL + "save/" + userId,
         missionStageHolder
-    });
+    );
 }
 
 const getAll = () =>{

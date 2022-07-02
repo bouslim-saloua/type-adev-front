@@ -1,9 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, {Component, useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+/**
+ * {successful ?   toast.success('Authentication success'):
+ toast.error('Authentication failed')      }
+ */
 
 import AuthService from "../services/auth.service";
 const required = value =>{
@@ -74,6 +80,14 @@ Le numéro de téléphone ne doit dépasser 10 caractères!
 }
 };
 const Register = (props) => {
+
+  //Notifications
+  /*const errorNotification=()=>{
+    toast.error('Authentication failed') ;
+  }
+  const successNotification = ()=>{
+    toast.success('Authentication success');
+  }*/
   const form = useRef();
   const checkBtn = useRef();
   const [nom, setNom] = useState("");
@@ -113,6 +127,16 @@ const Register = (props) => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+         // successNotification();
+         toast.success('success!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
         },
         (error) => {
           const resMessage =
@@ -123,10 +147,25 @@ const Register = (props) => {
             error.toString();
           setMessage(resMessage);
           setSuccessful(false);
+         // errorNotification();
+        // toast("ffff!")
+        toast.error(' email or phone number already exist', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
         }
       );
     }
   };
+  
+  //toast -push notifications
+ 
+ 
   return (
     <div className="col-md-12">
       
@@ -227,15 +266,82 @@ const Register = (props) => {
             </div>
           )}
           {message && (
-            <div className="form-group">
-              <div
+            <div>
+               <div class="toast">
+          <div class="toast-item">
+            <div class="toast-success">
+            
+            </div>
+            </div>
+            </div>
+                     {
+              /** <div
                 className={
                   successful ? "alert alert-success" : "alert alert-danger"
                 }
                 role="alert"
               >
                 {message}
-              </div>
+              </div>*/
+             } 
+             {/*successful ? 
+<div>
+<Modal  open={true}
+   onClose={this.handleClose}
+   basic
+   size='small'>
+    <Modal.Header closeButton>
+      <Modal.Title>Modal heading</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={handleClose}>
+        Close
+      </Button>
+      <Button variant="primary" onClick={handleClose}>
+        Save Changes
+      </Button>
+    </Modal.Footer>
+  </Modal>
+</div>
+ :
+ 
+   <div>
+    <Modal  open={true}
+   onClose={handleClose}
+   basic
+   size='small'>
+    <Modal.Header closeButton>
+      <Modal.Title>Modal heading</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={handleClose}>
+        Close
+      </Button>
+      <Button variant="primary" onClick={handleClose}>
+        Save Changes
+      </Button>
+    </Modal.Footer>
+  </Modal>
+</div>
+   
+             
+               
+              
+
+            */}
+            <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
             </div>
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />

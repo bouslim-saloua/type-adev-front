@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React,{ Component, useState} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Link,useNavigate , Navigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const Manifestation =()=> {
 		   
 		  
 		  <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault1" value="pes" checked onChange={onChangeGrade}/>
+			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault1" value="pes"  onChange={onChangeGrade}/>
 			 <label class="form-check-label" for="flexRadioDefault1">
 			   PES
 			 </label>
@@ -83,7 +83,7 @@ const Manifestation =()=> {
 	 <label class="form-check-label" for="inlineRadio2">Salarié</label>
    </div>
    </div>
-   <span>{typeDemadeur}</span>
+
    </form>
    </div>
    </div>
@@ -155,10 +155,10 @@ const Manifestation =()=> {
 	const [dateDepart, setDateDepart] = useState("");
 	const [dateRetour, setDateRetour] = useState("");
 	const [natureParticipation, setNatureParticipation] = useState("");
-	const [mAutre, setMAutre] =useState(0);
-	const [mHebergement, setMhebergement] = useState(0);
-	const [mInscription, setMinscription] = useState(0);
-	const [mTransport, setMtransport] = useState(0);
+	const [mAutre, setMAutre] =useState("");
+	const [mHebergement, setMhebergement] = useState("");
+	const [mInscription, setMinscription] = useState("");
+	const [mTransport, setMtransport] = useState("");
 	const [natureSoutien, setNatureSoutien] = useState("");
 	const [hasAlreadyBenifitedA, setHasAlreadyBenifitedA] = useState("");
 	const [mBenifitedEncours, setMBenifitedEnCours]  = useState("");
@@ -293,7 +293,7 @@ const onChangeAnneeThese = (e) =>{
 	}
 
 	const manifestationHolder ={
-		//Manifestation
+		
 dateCreation: currentDate,
 titreManifestation: intituleManifest,
 titreParticipation: intitulePaticipation,
@@ -318,9 +318,8 @@ etablissement: etablissement,
 departement: departement,
 entiteRecherche: entiteRecherche,
 respoEntite: respoEntiteRecherche,
-
+type: selectedValue,
 //Soutien
-
 
  nature: natureSoutien,
  mTitreTransport: mTransport,
@@ -337,7 +336,7 @@ mFraisInscription: mInscription,
 		setMessage("");
 		setLoading(true);
 		form.current.validateAll();
-		console.log(manifestationHolder);
+	
 		if (checkBtn.current.context._errors.length === 0) {
 		ManifestationService.saveManifestationByUserId(currentUser.id, manifestationHolder).then(
 
@@ -445,7 +444,6 @@ mFraisInscription: mInscription,
         <div className="col-md-6 form-group">
 <label htmlFor="departement">Département <span>*</span></label>
 <Input type="text" name="departement" id="departement" className="form-control" value={departement} onChange={onChangeDepartement} validations={[required]}></Input>
-     <span>{departement}</span>
 	    </div>
 
         </div>
@@ -454,7 +452,6 @@ mFraisInscription: mInscription,
         <div className="col-md-6 form-group">
 <label htmlFor="entite_recherche">Entité de Recherche(Centres, Laboratoire ou équipe …) <span>*</span></label>
 <Input type="text" name="entite_recherche" id="entite_recherche" className="form-control" value={entiteRecherche} onChange={onChangeEntiteRecherche} validations={[required]}></Input>
-      <span>{entiteRecherche}</span>
 	    </div>
 
         <div className="col-md-6 form-group">
@@ -536,7 +533,6 @@ mFraisInscription: mInscription,
 				  <option value="other">Autre...</option>
 			  </select>
 </div>
-<span>{natureParticipation}</span>
 	  </div>
 	  
 	 
@@ -565,7 +561,7 @@ mFraisInscription: mInscription,
 <form>
 <div className="radio-buttons">
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="hasBenifited" id="inlineRadio1" value={true} checked onChange={onChangeHasAlreadyBenifitedA}/>
+  <input class="form-check-input" type="radio" name="hasBenifited" id="inlineRadio1" value={true}  onChange={onChangeHasAlreadyBenifitedA}/>
   <label class="form-check-label" for="inlineRadio1">Oui</label>
 </div>
 <div class="form-check form-check-inline">
@@ -573,7 +569,7 @@ mFraisInscription: mInscription,
   <label class="form-check-label" for="inlineRadio2">Non</label>
 </div>
 </div>
-<span>{hasAlreadyBenifitedA}</span>
+
 </form>
 
 </div>
@@ -592,8 +588,8 @@ mFraisInscription: mInscription,
 </div>
                     </div>
 
-					
-                  
+
+				
 
                     <div className="row">
 <div className="col-md-6 form-group">
@@ -602,40 +598,44 @@ mFraisInscription: mInscription,
 <div className="col-md-6 form-group">
 <form>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="natureSoutien" id="inlineRadio1" value="soutien total" checked onChange={onchangeNatureSoutien}/>
+  <input class="form-check-input" type="radio" name="natureSoutien" id="inlineRadio1" value="soutien total"  onChange={onchangeNatureSoutien}/>
   <label class="form-check-label" htmlFor="soutien_total">Soutien total</label>
 </div>
 <div class="form-check form-check-inline">
   <input class="form-check-input" type="radio" name="natureSoutien" id="inlineRadio2" value="soutien complémentaire" onChange={onchangeNatureSoutien}/>
   <label class="form-check-label" htmlFor="soutien_complementaire">Soutien complémentaire</label>
 </div>
-<span>{natureSoutien}</span>
 </form>
 
 </div>
+
 <div className="row">
+						
 <div className="col-md-6 form-group">
-<label htmlFor="mTransport">Montant Titre Transport <span>*</span></label>
-<Input type="text" name="mTransport" id="mTransport" className="form-control"  validations={[required]} value={mTransport} onChange={onChangeMtransport}></Input>
+<label htmlFor="mTransport">Montant Titre Transport<span>*</span></label>
+<Input type="number" name="mTransport" id="mTransport" className="form-control" onChange={onChangeMtransport} value={mTransport} validations={[required]} ></Input>
 </div>
 
 <div className="col-md-6 form-group">
-<label htmlFor="mInscription">Montant Frais D'inscription <span>*</span></label>
-<Input type="text" name="mInscription" id="mInscription" className="form-control" validations={[required]} value={mInscription} onChange={onChangeMinscription}></Input>
+<label htmlFor="mInscription">Montant Frais Inscription <span>*</span></label>
+<Input type="number" name="mInscription" id="mInscription" className="form-control" onChange={onChangeMinscription} value={mInscription} validations={[required]} ></Input>
 </div>
                     </div>
 
-                    <div className="row">
+					<div className="row">
+						
 <div className="col-md-6 form-group">
-<label htmlFor="mHebergement">Montant Hébergement <span>*</span></label>
-<Input type="text" name="mHebergement" id="mHebergement" className="form-control" validations={[required]} value={mHebergement} onChange={onChangeMhebergement} ></Input>
+<label htmlFor="mHebergement">Montant Hebergement<span>*</span></label>
+<Input type="number" name="mHebergement" id="mHebergement" className="form-control" onChange={onChangeMhebergement} value={mHebergement} validations={[required]} ></Input>
 </div>
 
 <div className="col-md-6 form-group">
-<label htmlFor="mAutre">Autre <span>*</span></label>
-<Input type="text" name="mAutre" id="mAutre" className="form-control" validations={[required]} value={mAutre} onChange={onChangeMAutre}></Input>
+<label htmlFor="beni_montant">Montant Autre <span>*</span></label>
+<Input type="number" name="mHebergement" id="beni_montant" className="form-control" onChange={onChangeMAutre} value={mAutre} validations={[required]} ></Input>
 </div>
-                    </div>
+                    </div>	
+                  
+
 
                     </div>
           

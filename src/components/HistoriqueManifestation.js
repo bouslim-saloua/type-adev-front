@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {Component,useState, useEffect} from 'react'
 import ManifestationService from '../services/manifestation.service';
 import AuthService from '../services/auth.service';
 import { Link } from 'react-router-dom';

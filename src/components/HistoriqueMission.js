@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {Component,useState, useEffect} from 'react'
 import AuthService from '../services/auth.service';
 import { Link } from 'react-router-dom';
 import MissionService from '../services/mission.service';
@@ -36,8 +36,7 @@ Refusée
 const [missions, setMissions] = useState([]);
 const id = currentUser.id;
 useEffect(()=>{
-    
-    getMissions()
+    getMissions();
 }, [])
 
 

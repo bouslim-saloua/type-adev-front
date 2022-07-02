@@ -1,4 +1,6 @@
-import React,{ useState} from "react";
+
+
+import React,{ Component,useState} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Link,useNavigate , Navigate } from "react-router-dom";
@@ -6,6 +8,8 @@ import { useRef } from "react";
 import PersoInfo from "./PersoInfo";
 import AuthService from "../services/auth.service";
 import CheckButton from "react-validation/build/button";
+
+import MissionService from "../services/mission.service";
 
 
 
@@ -19,7 +23,7 @@ const required = (value) => {
 	}
   };
 
-const Mission =()=> {
+const Manifestation =()=> {
 	
 	const [selectedValue, setSelectedValue] = useState("");
       
@@ -29,34 +33,35 @@ const Mission =()=> {
 		 case 'enseignant':
 		  return(
 			<div>
+<Form id="contact-form" role="form">
 				<label htmlFor="grade">Grade <span>*</span></label>
-		   <Form id="contact-form" role="form">
-		  <div className="radio-buttons">
+		   
+		  
 		  <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="pes" checked onChange={onChangeGrade}/>
+			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault1" value="pes"  onChange={onChangeGrade}/>
 			 <label class="form-check-label" for="flexRadioDefault1">
 			   PES
 			 </label>
 		   </div>
 		   <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="ph" onChange={onChangeGrade} />
+			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="ph" onChange={onChangeGrade} />
 			 <label class="form-check-label" for="flexRadioDefault2">
 			   PH
 			 </label>
 		   </div>
 		   <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="pa" onChange={onChangeGrade} />
+			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="pa" onChange={onChangeGrade} />
 			 <label class="form-check-label" for="flexRadioDefault2">
 			  PA
 			 </label>
 		   </div>
 		   <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="autre" onChange={onChangeGrade} />
+			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="autre" onChange={onChangeGrade} />
 			 <label class="form-check-label" for="flexRadioDefault2">
 			 Autre
 			 </label>
 		   </div>
-		  </div>
+		  <span>{grade}</span>
 		   </Form>
 		   </div>
 		  )
@@ -69,6 +74,7 @@ const Mission =()=> {
    <label>Fonctionnaire ou salarié <span>*</span></label>
    </div>
    <div className="col-md-3">
+   <form>
    <div className="radio-buttons">
    <div class="form-check form-check-inline">
 	 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="fonctionnaire" onChange={onChangeTypeDemandeur}/>
@@ -79,10 +85,13 @@ const Mission =()=> {
 	 <label class="form-check-label" for="inlineRadio2">Salarié</label>
    </div>
    </div>
+   <span>{typeDemadeur}</span>
+   </form>
    </div>
    </div>
    
    <div className="form-group">
+   <form>
    <label>Année thèse <span>*</span></label>
    <div className="radio-buttons">
    <div class="form-check">
@@ -103,7 +112,11 @@ const Mission =()=> {
 	  Troisième ou Plus
 	 </label>
 	 </div>
-   </div>
+	 
+</div>
+<span>{anneeThese}</span>
+   </form>
+   
    
    <div className="row form-group">
    <label htmlFor="Directeur_these">Directeur de Thèse <span>*</span></label>
@@ -127,194 +140,246 @@ const Mission =()=> {
 	 
 	 const current = new Date();
 	 const currentDate =  `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+	 const currentUser = AuthService.getCurrentUser();
+	 const [pays, setPays] = useState("");
+	 const [ville, setVille] = useState("");
+	 const [dateDebut, setDateDebut] = useState("");
+	 const [dateFin, setDateFin] = useState("");
+	 const [dateDepart, setDateDepart] = useState("");
+	 const [dateRetour, setDateRetour] = useState("");
+	 const [mAutre, setMAutre] =useState("");
+	 const [mHebergement, setMhebergement] = useState("");
+	 const [mInscription, setMinscription] = useState("");
+	 const [mTransport, setMtransport] = useState("");
+	 const [natureSoutien, setNatureSoutien] = useState("");
+	 const [hasAlreadyBenifitedA, setHasAlreadyBenifitedA] = useState("");
+	 const [mBenifitedEncours, setMBenifitedEnCours]  = useState("");
+	 const [mBenifitedAnPrd, setMBenifitedAnPrd] = useState("");
+	 //infoPro
+	 const [typeDemadeur, setTypeDemandeur] =useState("");
+	 const [etablissement, setEtablissement] = useState("");
+	 const [departement, setDepartement] = useState("");
+	 const [entiteRecherche, setEntiteRecherche] = useState("");
+	 const [respoEntiteRecherche, setRespoEntiteRecherche] = useState("");
+	  const [grade, setGrade] = useState("");
+	  const [loading, setLoading] = useState(false);
+   const [message, setMessage] = useState("");
+	  const [objet, setObjet] = useState("");
+	  const [cadre , setCadre] = useState("");
+	  const [intituleProjet, setIntituleProjet] = useState("");
+	  const [responsableMarocain, setResponsableMarocain] = useState("");
+	  const [responsableEtrange, setResponsableEtrange] = useState("");
+	const [typeDoctorant, setTypeDoctorant] = useState("");
+	const [anneeThese, setAnneeThese] = useState("");
+	const [directeurThese, setDirecteurThese] = useState("");
+	const [ced, setCed] = useState("");
+	
+	const navigate = useNavigate();
+   const form = useRef();
+   const checkBtn = useRef();
+   
+   const onChangeObjet = (e) =>{
+	 const objet = e.target.value;
+	 setObjet(objet);
+ }
+ const onChangeCadre = (e) =>{
+	 const cadre = e.target.value;
+	 setCadre(cadre);
+ }
+ const onChangeIntituleProjet = (e) =>{
+	 const intituleProjet = e.target.value;
+	 setIntituleProjet(intituleProjet);
+ }
+ const onChangeResponsableMarocain = (e) =>{
+	 const responsableMarocain = e.target.value;
+	 setResponsableMarocain(responsableMarocain);
+ }
+ const onChangeResponsableEtrange = (e) =>{
+	 const responsableEtrange = e.target.value;
+	 setResponsableEtrange(responsableEtrange);
+ }
+  
+   const onChangeEtablissement = (e) =>{
+	   const etablissement = e.target.value;
+	   setEtablissement(etablissement);
+   }
+   const onChangeTypeDemandeur = (e) =>{
+	 const typeDemandeur = e.target.value;
+	 setTypeDemandeur(typeDemandeur);
+ }
+ const onChangeCed = (e) =>{
+	 const ced = e.target.value;
+	 setCed(ced);
+ }
+ const onChangeDirecteurThese = (e) =>{
+	 const directeurThese = e.target.value;
+	 setDirecteurThese(directeurThese);
+ }
+ const onChangeDepartement = (e) =>{
+	 const departement = e.target.value;
+	 setDepartement(departement);
+ }
+ const onChangeRespoEntiteRecherche = (e) =>{
+	 const respoEntiteRecherche = e.target.value;
+	 setRespoEntiteRecherche(respoEntiteRecherche);
+ }
+ const onChangeGrade = (e) =>{
+	 const grade = e.target.value;
+	 setGrade(grade);
+ }
+ const onChangeEntiteRecherche = (e) =>{
+	 const entiteRecherche = e.target.value;
+	 setEntiteRecherche(entiteRecherche);
+ }
+ const onChangeTypeDoctorant = (e) =>{
+	 const typeDoctorant = e.target.value;
+	 setTypeDoctorant(typeDoctorant);
+ }
+ const onChangeAnneeThese = (e) =>{
+	 const anneeThese = e.target.value;
+	 setAnneeThese(anneeThese);
+ }
+ 
+ 
+	 const onChangePays = (e) =>{
+		 const pays = e.target.value;
+		 setPays(pays);
+	 }
+	 const onChangeVille = (e) =>{
+		 const ville = e.target.value;
+		 setVille(ville);
+	 }
+	 const onChangeDateDebut = (e) =>{
+		 const dateDebut = e.target.value;
+		 setDateDebut(dateDebut);
+	 }
+	 const onChangeDateFin = (e) =>{
+		 const dateFin = e.target.value;
+		 setDateFin(dateFin);
+	 }
+	 const onChangeDateDepart = (e) =>{
+		 const dateDepart = e.target.value;
+		 setDateDepart(dateDepart);
+	 }
+	 const onChangeDateRetour = (e) =>{
+		 const dateRetour = e.target.value;
+		 setDateRetour(dateRetour);
+	 }
 	 
+	 
+	 const onChangeMAutre = (e) =>{
+		 const mAutre = e.target.value;
+		 setMAutre(mAutre);
+	 }
+	 
+	 const onChangeMhebergement = (e) =>{
+		 const mHebergement = e.target.value;
+		 setMhebergement(mHebergement);
+	 }
+	 const onChangeMinscription = (e) =>{
+		 const mInscription = e.target.value;
+		 setMinscription(mInscription);
+	 }
+	 const onChangeMtransport = (e) =>{
+		 const mTransport = e.target.value;
+		 setMtransport(mTransport);
+	 }
+	 const onchangeNatureSoutien = (e) =>{
+		 const natureSoutien = e.target.value;
+		 setNatureSoutien(natureSoutien);
+	 }
+	 const onChangeHasAlreadyBenifitedA = (e) =>{
+		 const hasAlreadyBenifitedA = e.target.value;
+		 setHasAlreadyBenifitedA(hasAlreadyBenifitedA);
+	 }
+	 const onChangeMBenfinitedAnPrd = (e) =>{
+		 const mBenifitedAnPrd = e.target.value;
+		 setMBenifitedAnPrd(mBenifitedAnPrd);
+	 }
+ 
+	 const onChangeMBenifitedEncours = (e) =>{
+		 const mBenifitedEncours = e.target.value;
+		 setMBenifitedEnCours(mBenifitedEncours);
+	 }
+ 
    
 	 const handleChange =(e) =>{
 	   const selectedValue = e.target.value;
 	   setSelectedValue(selectedValue);
 	 }
-	//const navigate = useNavigate();
-	const currentUser = AuthService.getCurrentUser();
 	
-	const [pays, setPays] = useState("");
-	const [ville, setVille] = useState("");
-	const [dateDebut, setDateDebut] = useState("");
-	const [dateFin, setDateFin] = useState("");
-	const [dateDepart, setDateDepart] = useState("");
-	const [dateRetour, setDateRetour] = useState("");
-	const [m_autre, setMAutre] =useState("");
-	const [m_hebergement, setMhebergement] = useState("");
-	const [m_inscription, setMinscription] = useState("");
-	const [m_transport, setMtransport] = useState("");
-	const [natureSoutien, setNatureSoutien] = useState("");
-	const [hasAlreadyBenifitedA, setHasAlreadyBenifitedA] = useState("");
-	const [mBenifitedEncours, setMBenifitedEnCours]  = useState("");
-	const [mBenifitedAnPrd, setMBenifitedAnPrd] = useState("");
-	//infoPro
-	const [typeDemadeur, setTypeDemandeur] =useState("");
-	const [etablissement, setEtablissement] = useState("");
-	const [departement, setDepartement] = useState("");
-	const [entiteRecherche, setEntiteRecherche] = useState("");
-	const [respoEntiteRecherche, setRespoEntiteRecherche] = useState("");
-	 const [grade, setGrade] = useState("");
-	 const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-	 const [objet, setObjet] = useState("");
-	 const [cadre , setCadre] = useState("");
-	 const [intituleProjet, setIntituleProjet] = useState("");
-	 const [responsableMarocain, setResponsableMarocain] = useState("");
-	 const [responsableEtrange, setResponsableEtrange] = useState("");
-   const [typeDoctorant, setTypeDoctorant] = useState("");
-   const [anneeThese, setAnneeThese] = useState("");
-   const [directeurThese, setDirecteurThese] = useState("");
-   const [ced, setCed] = useState("");
-   
-   const navigate = useNavigate();
-  const form = useRef();
-  const checkBtn = useRef();
-  
-  const onChangeObjet = (e) =>{
-	const objet = e.target.value;
-	setObjet(objet);
-}
-const onChangeCadre = (e) =>{
-	const cadre = e.target.value;
-	setCadre(cadre);
-}
-const onChangeIntituleProjet = (e) =>{
-	const intituleProjet = e.target.value;
-	setIntituleProjet(intituleProjet);
-}
-const onChangeResponsableMarocain = (e) =>{
-	const responsableMarocain = e.target.value;
-	setResponsableMarocain(responsableMarocain);
-}
-const onChangeResponsableEtrange = (e) =>{
-	const responsableEtrange = e.target.value;
-	setResponsableEtrange(responsableEtrange);
-}
- 
-  const onChangeEtablissement = (e) =>{
-	  const etablissement = e.target.value;
-	  setEtablissement(etablissement);
-  }
-  const onChangeTypeDemandeur = (e) =>{
-	const typeDemandeur = e.target.value;
-	setTypeDemandeur(typeDemandeur);
-}
-const onChangeCed = (e) =>{
-	const ced = e.target.value;
-	setCed(ced);
-}
-const onChangeDirecteurThese = (e) =>{
-	const directeurThese = e.target.value;
-	setDirecteurThese(directeurThese);
-}
-const onChangeDepartement = (e) =>{
-	const departement = e.target.value;
-	setDepartement(departement);
-}
-const onChangeRespoEntiteRecherche = (e) =>{
-	const respoEntiteRecherche = e.target.value;
-	setRespoEntiteRecherche(respoEntiteRecherche);
-}
-const onChangeGrade = (e) =>{
-	const grade = e.target.value;
-	setGrade(grade);
-}
-const onChangeEntiteRecherche = (e) =>{
-	const entiteRecherche = e.target.value;
-	setEntiteRecherche(entiteRecherche);
-}
-const onChangeTypeDoctorant = (e) =>{
-	const typeDoctorant = e.target.value;
-	setTypeDoctorant(typeDoctorant);
-}
-const onChangeAnneeThese = (e) =>{
-	const anneeThese = e.target.value;
-	setAnneeThese(anneeThese);
-}
+	const missionStageHolder={
+		 dateCreation:currentDate,
+ titre: intituleProjet,
+ respoMarocain: responsableMarocain,
+ partenaireEtranger: responsableEtrange,
+ dateDebut: dateDebut,
+ dateFin: dateFin,
+ dateDepart: dateDepart,
+dateRetour: dateRetour,
+hasCurrentTypeA: hasAlreadyBenifitedA,
+ cadreSoutien: cadre,
+ status: "en cours",
+ pays: pays,
+ ville: ville,
+ objet: objet,
+ montantAnEnCours:mBenifitedEncours,
+//montant année précédente
+montantAnPrd: mBenifitedAnPrd,
 
 
-	const onChangePays = (e) =>{
-		const pays = e.target.value;
-		setPays(pays);
+//DonneePro 
+ fonctionnalite: typeDemadeur,
+ grade: grade,
+salarie: typeDoctorant,
+ anneeThese: anneeThese,
+ directeurThese: directeurThese,
+ ced: ced,
+ etablissement: etablissement,
+ departement: departement,
+ entiteRecherche: entiteRecherche,
+ respoEntite: respoEntiteRecherche,
+ type: selectedValue,
+//Soutien
+ nature: natureSoutien,
+mTitreTransport: mTransport,
+mFraisInscription: mInscription,
+mHebergement: mHebergement,
+mAutre: mAutre
+
 	}
-	const onChangeVille = (e) =>{
-		const ville = e.target.value;
-		setVille(ville);
-	}
-	const onChangeDateDebut = (e) =>{
-		const dateDebut = e.target.value;
-		setDateDebut(dateDebut);
-	}
-	const onChangeDateFin = (e) =>{
-		const dateFin = e.target.value;
-		setDateFin(dateFin);
-	}
-	const onChangeDateDepart = (e) =>{
-		const dateDepart = e.target.value;
-		setDateDepart(dateDepart);
-	}
-	const onChangeDateRetour = (e) =>{
-		const dateRetour = e.target.value;
-		setDateRetour(dateRetour);
-	}
+
+
+	const handleSave = (e) => {
+		e.preventDefault();
+		setMessage("");
+		setLoading(true);
+		form.current.validateAll();
 	
-	
-	const onChangeMAutre = (e) =>{
-		const m_autre = e.target.value;
-		setMAutre(m_autre);
-	}
-	
-	const onChangeMhebergement = (e) =>{
-		const m_hebergement = e.target.value;
-		setMhebergement(m_hebergement);
-	}
-	const onChangeMinscription = (e) =>{
-		const m_inscription = e.target.value;
-		setMinscription(m_inscription);
-	}
-	const onChangeMtransport = (e) =>{
-		const m_transport = e.target.value;
-		setMtransport(m_transport);
-	}
-	const onchangeNatureSoutien = (e) =>{
-		const natureSoutien = e.target.value;
-		setNatureSoutien(natureSoutien);
-	}
-	const onChangeHasAlreadyBenifitedA = (e) =>{
-		const hasAlreadyBenifitedA = e.target.value;
-		setHasAlreadyBenifitedA(hasAlreadyBenifitedA);
-	}
-	const onChangeMBenfinitedAnPrd = (e) =>{
-		const mBenifitedAnPrd = e.target.value;
-		setMBenifitedAnPrd(mBenifitedAnPrd);
-	}
+		if (checkBtn.current.context._errors.length === 0) {
+		MissionService.saveMissionByUserId(currentUser.id, missionStageHolder).then(
 
-	const onChangeMBenifitedEncours = (e) =>{
-		const mBenifitedEncours = e.target.value;
-		setMBenifitedEnCours(mBenifitedEncours);
-	}
-
-	const soutien={
-		natureSoutien: natureSoutien,
-		m_transport: m_transport,
-		m_inscription: m_inscription,
-		m_hebergement: m_hebergement,
-		m_autre:m_autre,
-		mission: mission
-	}
-	const mission={
-
+			() => {
+			 navigate("/historique/missions");
+			  window.location.reload();
+			  
+			},
+			(error) => {
+			  const resMessage =
+				(error.response &&
+				  error.response.data &&
+				  error.response.data.message) ||
+				error.message ||
+				error.toString();
+			  setLoading(false);
+			  setMessage(resMessage);
+			}
+		  );
+		} else {
+		  setLoading(false);
+		}
 
 	}
-
-	const donneePro={
-
-	}
-
-	const handleSave = (e) => {}
 
     return(
 		<div>
@@ -326,10 +391,10 @@ const onChangeAnneeThese = (e) =>{
 <div className="container">
 	<div className="row">
 		<div className="col-md-12">
-			<h2>Demande TYPE-A: Mission ou Stage</h2>
+			<h2>Demande TYPE-A: Manifestation Scientifique</h2>
 			<ol className="breadcrumb header-bradcrumb">
 			  <li><Link to="/">Acceuil</Link></li>
-			  <li className="active">Mission ou Stage</li>
+			  <li className="active">Manifestation Scientifique</li>
 			</ol>
 		</div>
 	</div>
@@ -381,6 +446,7 @@ const onChangeAnneeThese = (e) =>{
                       <option value="" selected="selected"></option>
                       <option value="fssm">FSSM</option>
                       <option value="fsjesm">FSJESM</option>
+					  <option value="fstg">FSTG</option>
                       <option value="flshm">FLSHM</option>
                       <option value="fmpm">FMPM</option>
                       <option value="ensam">ENSAM</option>
@@ -397,7 +463,7 @@ const onChangeAnneeThese = (e) =>{
         <div className="col-md-6 form-group">
 <label htmlFor="departement">Département <span>*</span></label>
 <Input type="text" name="departement" id="departement" className="form-control" value={departement} onChange={onChangeDepartement} validations={[required]}></Input>
-        </div>
+	    </div>
 
         </div>
 
@@ -405,12 +471,13 @@ const onChangeAnneeThese = (e) =>{
         <div className="col-md-6 form-group">
 <label htmlFor="entite_recherche">Entité de Recherche(Centres, Laboratoire ou équipe …) <span>*</span></label>
 <Input type="text" name="entite_recherche" id="entite_recherche" className="form-control" value={entiteRecherche} onChange={onChangeEntiteRecherche} validations={[required]}></Input>
-        </div>
+	    </div>
 
         <div className="col-md-6 form-group">
 <label htmlFor="respo_eRecherche">Responsable de l’entité de recherche <span>*</span></label>
 <Input type="text" name="respo_eRecherche" id="respo_eRecherche" className="form-control" value={respoEntiteRecherche} onChange={onChangeRespoEntiteRecherche} validations={[required]}></Input>
-        </div>
+       
+	    </div>
         </div>
           </Form>
 
@@ -418,6 +485,7 @@ const onChangeAnneeThese = (e) =>{
         </div>
 		</div>
 		
+		{/**code here */}
 		<div className="col-12">
 		<div className="title text-center" >
 			<h2>Informations générales sur la mission ou stage</h2>
@@ -491,13 +559,13 @@ const onChangeAnneeThese = (e) =>{
 					<div className="row">
 				<form>
 				<div class="form-check">
-	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="true"  />
+	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value={true}  />
 	 <label class="form-check-label" for="flexRadioDefault2">
 	 Ce projet de coopération financé, mais le titre de transport ne fait pas partie de l'enveloppe budgétaire allouée
 	 </label>
    </div>
    <div class="form-check">
-	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="false" />
+	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value={false} />
 	 <label class="form-check-label" for="flexRadioDefault2">
 	 Ce n'est pas dans le cadre d'un projet de Recherche financé
 	 </label>
@@ -530,7 +598,10 @@ const onChangeAnneeThese = (e) =>{
 </div>
 </div>
 </div>
-</div>
+		</div>
+	
+	
+	
 	<div className="soutien">
 	<div className="col-12">
 			<div className="title text-center" >
@@ -549,23 +620,29 @@ const onChangeAnneeThese = (e) =>{
 </div>
 
 <div className="col-md-6 form-group">
+<form>
 <div className="radio-buttons">
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked onChange={onChangeHasAlreadyBenifitedA}/>
+  <input class="form-check-input" type="radio" name="hasBenifited" id="inlineRadio1" value={true}  onChange={onChangeHasAlreadyBenifitedA}/>
   <label class="form-check-label" for="inlineRadio1">Oui</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" onChange={onChangeHasAlreadyBenifitedA}/>
+  <input class="form-check-input" type="radio" name="hasBenifited" id="inlineRadio2" value={false} onChange={onChangeHasAlreadyBenifitedA}/>
   <label class="form-check-label" for="inlineRadio2">Non</label>
 </div>
 </div>
+
+</form>
+
 </div>
                     </div>
 
                     <div className="row">
+						<span> Si oui :</span>
 <div className="col-md-6 form-group">
 <label htmlFor="beni_montant">Préciser le montant année précédente<span>*</span></label>
 <Input type="number" name="beni_montant" id="beni_montant" className="form-control" onChange={onChangeMBenfinitedAnPrd} value={mBenifitedAnPrd} validations={[required]} ></Input>
+<span>{mBenifitedAnPrd}</span>
 </div>
 
 <div className="col-md-6 form-group">
@@ -574,8 +651,8 @@ const onChangeAnneeThese = (e) =>{
 </div>
                     </div>
 
-					
-                  
+
+				
 
                     <div className="row">
 <div className="col-md-6 form-group">
@@ -584,38 +661,44 @@ const onChangeAnneeThese = (e) =>{
 <div className="col-md-6 form-group">
 <form>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="soutien total" checked onChange={onchangeNatureSoutien}/>
+  <input class="form-check-input" type="radio" name="natureSoutien" id="inlineRadio1" value="soutien total"  onChange={onchangeNatureSoutien}/>
   <label class="form-check-label" htmlFor="soutien_total">Soutien total</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="soutien complémentaire" onChange={onchangeNatureSoutien}/>
+  <input class="form-check-input" type="radio" name="natureSoutien" id="inlineRadio2" value="soutien complémentaire" onChange={onchangeNatureSoutien}/>
   <label class="form-check-label" htmlFor="soutien_complementaire">Soutien complémentaire</label>
 </div>
 </form>
+
 </div>
+
 <div className="row">
+						
 <div className="col-md-6 form-group">
-<label htmlFor="m_transport">Montant Titre Transport <span>*</span></label>
-<Input type="text" name="m_transport" id="m_transport" className="form-control"  validations={[required]} value={m_transport} onChange={onChangeMtransport}></Input>
+<label htmlFor="mTransport">Montant Titre Transport<span>*</span></label>
+<Input type="number" name="mTransport" id="mTransport" className="form-control" onChange={onChangeMtransport} value={mTransport} validations={[required]} ></Input>
 </div>
 
 <div className="col-md-6 form-group">
-<label htmlFor="m_inscription">Montant Frais D'inscription <span>*</span></label>
-<Input type="text" name="m_inscription" id="m_inscription" className="form-control" validations={[required]} value={m_inscription} onChange={onChangeMinscription}></Input>
+<label htmlFor="mInscription">Montant Frais Inscription <span>*</span></label>
+<Input type="number" name="mInscription" id="mInscription" className="form-control" onChange={onChangeMinscription} value={mInscription} validations={[required]} ></Input>
 </div>
                     </div>
 
-                    <div className="row">
+					<div className="row">
+						
 <div className="col-md-6 form-group">
-<label htmlFor="m_hebergement">Montant Hébergement <span>*</span></label>
-<Input type="text" name="m_hebergement" id="m_hebergement" className="form-control" validations={[required]} value={m_hebergement} onChange={onChangeMhebergement} ></Input>
+<label htmlFor="mHebergement">Montant Hebergement<span>*</span></label>
+<Input type="number" name="mHebergement" id="mHebergement" className="form-control" onChange={onChangeMhebergement} value={mHebergement} validations={[required]} ></Input>
 </div>
 
 <div className="col-md-6 form-group">
-<label htmlFor="m_autre">Autre <span>*</span></label>
-<Input type="text" name="m_autre" id="m_autre" className="form-control" validations={[required]} value={m_autre} onChange={onChangeMAutre}></Input>
+<label htmlFor="beni_montant">Montant Autre <span>*</span></label>
+<Input type="number" name="mHebergement" id="beni_montant" className="form-control" onChange={onChangeMAutre} value={mAutre} validations={[required]} ></Input>
 </div>
-                    </div>
+                    </div>	
+                  
+
 
                     </div>
           
@@ -656,4 +739,4 @@ const onChangeAnneeThese = (e) =>{
     );
    }
 
-export default Mission;
+export default Manifestation;

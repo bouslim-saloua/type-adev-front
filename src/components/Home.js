@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Component} from "react";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import { Link } from "react-router-dom";

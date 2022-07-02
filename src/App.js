@@ -1,5 +1,4 @@
-import AuthService from "./services/auth.service";
-import React, { useState, useEffect } from "react";
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Route,Routes } from 'react-router-dom';
 import Login from './components/Login'
@@ -16,8 +15,7 @@ import AboutUs from "./components/AboutUs";
 import Footer from './components/Footer';
 import HistoriqueManifestation from "./components/HistoriqueManifestation";
 import HistoriqueMission from "./components/HistoriqueMission";
-import CustomRadioButton from "./components/CustomRadioButton";
-
+import React,{Component} from 'react';
 const App = () => {
   
  
@@ -42,7 +40,6 @@ const App = () => {
    <Route exact path='/historique/manifestations' element={<HistoriqueManifestation/>}></Route>
    <Route exact path='/aboutUs' element={<AboutUs/>}></Route>
    <Route exact path='/historique/missions' element={<HistoriqueMission/>}></Route>
-   <Route exact path='/customRadioButton' element={<CustomRadioButton/>} ></Route>
   </Routes>
   <div>
     <Footer/>

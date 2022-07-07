@@ -341,7 +341,7 @@ mFraisInscription: mInscription,
 		ManifestationService.saveManifestationByUserId(currentUser.id, manifestationHolder).then(
 
 			() => {
-			 navigate("/historique/manifestations");
+			 navigate("/historique-manifestations");
 			  window.location.reload();
 			  
 			},

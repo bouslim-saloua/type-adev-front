@@ -360,7 +360,7 @@ mAutre: mAutre
 		MissionService.saveMissionByUserId(currentUser.id, missionStageHolder).then(
 
 			() => {
-			 navigate("/historique/missions");
+			 navigate("/historique-missions");
 			  window.location.reload();
 			  
 			},

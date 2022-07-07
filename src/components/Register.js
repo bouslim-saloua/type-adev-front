@@ -129,7 +129,7 @@ const Register = (props) => {
           setSuccessful(true);
          // successNotification();
          toast.success('success!', {
-          position: "top-center",
+          position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -150,7 +150,7 @@ const Register = (props) => {
          // errorNotification();
         // toast("ffff!")
         toast.error(' email or phone number already exist', {
-          position: "top-center",
+          position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -332,7 +332,7 @@ const Register = (props) => {
 
             */}
             <ToastContainer
-position="top-center"
+position="bottom-left"
 autoClose={5000}
 hideProgressBar={false}
 newestOnTop={false}

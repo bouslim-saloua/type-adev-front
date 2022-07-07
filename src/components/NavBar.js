@@ -62,8 +62,8 @@ const NavBar =()=> {
               Historique des demandes
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <Link to="/historique/manifestations" className="dropdown-item"> Manifestation Scientifique</Link>
-             <Link to="/historique/missions" className="dropdown-item">Mission Ou Stage</Link>
+            <Link to="/historique-manifestations" className="dropdown-item"> Manifestation Scientifique</Link>
+             <Link to="/historique-missions" className="dropdown-item">Mission Ou Stage</Link>
               
             </div>
           </li>

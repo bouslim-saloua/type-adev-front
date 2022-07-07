@@ -8,22 +8,16 @@ const HistoriqueMission=()=>{
         switch(param) {
           case 'en cours':
            return(
-            <div className="alert alert-warning" role="alert">
-En cours
-            </div>
+            <button type="button" class="btn btn-warning" disabled>En cours</button>
            )
 
            case 'validée' :
             return(
-               <div className="alert alert-success" role="alert">
-Validée
-               </div> 
+                <button type="button" class="btn btn-success" disabled>Validée</button> 
             )
             case 'refusée' :
                 return(
-                    <div className="alert alert-danger" role="alert">
-Refusée
-                    </div>
+                    <button type="button" class="btn btn-danger" disabled>Refusée</button>
                 )
              default:
                     return null;

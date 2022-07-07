@@ -37,9 +37,9 @@ const App = () => {
    <Route exact path="/manifestation" element={<Manifestation/>}></Route>
    <Route exact path='/mission' element={<Mission/>}></Route>
    <Route exact path='/persoInfo' element={<PersoInfo/>}></Route>
-   <Route exact path='/historique/manifestations' element={<HistoriqueManifestation/>}></Route>
+   <Route exact path='/historique-manifestations' element={<HistoriqueManifestation/>}></Route>
    <Route exact path='/aboutUs' element={<AboutUs/>}></Route>
-   <Route exact path='/historique/missions' element={<HistoriqueMission/>}></Route>
+   <Route exact path='/historique-missions' element={<HistoriqueMission/>}></Route>
   </Routes>
   <div>
     <Footer/>

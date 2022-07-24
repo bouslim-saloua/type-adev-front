@@ -1,4 +1,4 @@
-import React, {Component,useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import AuthService from '../services/auth.service';
 import { Link } from 'react-router-dom';
 import MissionService from '../services/mission.service';
@@ -8,16 +8,16 @@ const HistoriqueMission=()=>{
         switch(param) {
           case 'en cours':
            return(
-            <button type="button" class="btn btn-warning" disabled>En cours</button>
+            <button type="button" className="btn btn-warning" disabled>En cours</button>
            )
 
            case 'validée' :
             return(
-                <button type="button" class="btn btn-success" disabled>Validée</button> 
+                <button type="button" className="btn btn-success" disabled>Validée</button> 
             )
             case 'refusée' :
                 return(
-                    <button type="button" class="btn btn-danger" disabled>Refusée</button>
+                    <button type="button" className="btn btn-danger" disabled>Refusée</button>
                 )
              default:
                     return null;
@@ -79,17 +79,17 @@ return (
        
 
             {length ===0 ?(
-        <section class="page-404 section text-center">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
+        <section className="page-404 section text-center">
+		<div className="container">
+			<div className="row">
+				<div className="col-md-12">
 					<h1>404</h1>
 					<h2>Page Not Found</h2>
   					<p>Sorry, but the page you were trying to view does not exist.</p>
 					
-                      <a href="/home" class="btn btn-primary btn-lg " role="button" aria-disabled="true" araria-pressed="true">Aller à la page d'acceuil</a>
+                      <a href="/home" className="btn btn-primary btn-lg " role="button" aria-disabled="true" araria-pressed="true">Aller à la page d'acceuil</a>
                     
-                    <a href="/postuler" class="btn btn-secondary btn-lg " role="button" aria-disabled="true" aria-pressed="true">Postuler</a>
+                    <a href="/postuler" className="btn btn-secondary btn-lg " role="button" aria-disabled="true" aria-pressed="true">Postuler</a>
               
 				</div>
 			</div>

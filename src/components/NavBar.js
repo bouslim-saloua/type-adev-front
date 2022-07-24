@@ -1,4 +1,4 @@
-import React,{Component} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
@@ -56,12 +56,12 @@ const NavBar =()=> {
           </ul>
   {currentUser ? (
     <div  className="navbar-nav  text-center">
- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+ <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               Historique des demandes
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
             <Link to="/historique-manifestations" className="dropdown-item"> Manifestation Scientifique</Link>
              <Link to="/historique-missions" className="dropdown-item">Mission Ou Stage</Link>
               
@@ -85,9 +85,9 @@ const NavBar =()=> {
       <li className="nav-item">
 <Link to="/register" className="nav-link"> Créer un compte </Link>
  </li>
-<form class="form-inline my-2 my-lg-0">
+<form className="form-inline my-2 my-lg-0">
         
-        <Link to="/login"><button class="btn btn-secondary my-2 my-sm-0" >Se connecter</button></Link>
+        <Link to="/login"><button className="btn btn-secondary my-2 my-sm-0" >Se connecter</button></Link>
          
        </form>
     </div>

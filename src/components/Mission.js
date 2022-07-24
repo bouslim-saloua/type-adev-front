@@ -1,6 +1,6 @@
 
 
-import React,{ Component,useState} from "react";
+import React,{useState} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Link,useNavigate , Navigate } from "react-router-dom";
@@ -37,27 +37,27 @@ const Manifestation =()=> {
 				<label htmlFor="grade">Grade <span>*</span></label>
 		   
 		  
-		  <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault1" value="pes"  onChange={onChangeGrade}/>
-			 <label class="form-check-label" for="flexRadioDefault1">
+		  <div className="form-check">
+			 <Input className="form-check-input" type="radio" name="grade" id="flexRadioDefault1" value="pes"  onChange={onChangeGrade}/>
+			 <label className="form-check-label" for="flexRadioDefault1">
 			   PES
 			 </label>
 		   </div>
-		   <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="ph" onChange={onChangeGrade} />
-			 <label class="form-check-label" for="flexRadioDefault2">
+		   <div className="form-check">
+			 <Input className="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="ph" onChange={onChangeGrade} />
+			 <label className="form-check-label" for="flexRadioDefault2">
 			   PH
 			 </label>
 		   </div>
-		   <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="pa" onChange={onChangeGrade} />
-			 <label class="form-check-label" for="flexRadioDefault2">
+		   <div className="form-check">
+			 <Input className="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="pa" onChange={onChangeGrade} />
+			 <label className="form-check-label" for="flexRadioDefault2">
 			  PA
 			 </label>
 		   </div>
-		   <div class="form-check">
-			 <Input class="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="autre" onChange={onChangeGrade} />
-			 <label class="form-check-label" for="flexRadioDefault2">
+		   <div className="form-check">
+			 <Input className="form-check-input" type="radio" name="grade" id="flexRadioDefault2" value="autre" onChange={onChangeGrade} />
+			 <label className="form-check-label" for="flexRadioDefault2">
 			 Autre
 			 </label>
 		   </div>
@@ -76,13 +76,13 @@ const Manifestation =()=> {
    <div className="col-md-3">
    <form>
    <div className="radio-buttons">
-   <div class="form-check form-check-inline">
-	 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="fonctionnaire" onChange={onChangeTypeDemandeur}/>
-	 <label class="form-check-label" for="inlineRadio1">Fonctionnaire</label>
+   <div className="form-check form-check-inline">
+	 <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="fonctionnaire" onChange={onChangeTypeDemandeur}/>
+	 <label className="form-check-label" for="inlineRadio1">Fonctionnaire</label>
    </div>
-   <div class="form-check form-check-inline">
-	 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="salarié" onChange={onChangeTypeDemandeur}/>
-	 <label class="form-check-label" for="inlineRadio2">Salarié</label>
+   <div className="form-check form-check-inline">
+	 <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="salarié" onChange={onChangeTypeDemandeur}/>
+	 <label className="form-check-label" for="inlineRadio2">Salarié</label>
    </div>
    </div>
    <span>{typeDemadeur}</span>
@@ -94,21 +94,21 @@ const Manifestation =()=> {
    <form>
    <label>Année thèse <span>*</span></label>
    <div className="radio-buttons">
-   <div class="form-check">
-	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="première" onChange={onChangeAnneeThese} />
-	 <label class="form-check-label" for="flexRadioDefault1">
+   <div className="form-check">
+	 <Input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="première" onChange={onChangeAnneeThese} />
+	 <label className="form-check-label" for="flexRadioDefault1">
 	   Première
 	 </label>
    </div>
-   <div class="form-check">
-	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="deuxième" onChange={onChangeAnneeThese} />
-	 <label class="form-check-label" for="flexRadioDefault2">
+   <div className="form-check">
+	 <Input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="deuxième" onChange={onChangeAnneeThese} />
+	 <label className="form-check-label" for="flexRadioDefault2">
 	   Deuxième
 	 </label>
    </div>
-   <div class="form-check">
-	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="troisième" onChange={onChangeAnneeThese} />
-	 <label class="form-check-label" for="flexRadioDefault2">
+   <div className="form-check">
+	 <Input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="troisième" onChange={onChangeAnneeThese} />
+	 <label className="form-check-label" for="flexRadioDefault2">
 	  Troisième ou Plus
 	 </label>
 	 </div>
@@ -421,7 +421,7 @@ mAutre: mAutre
 			</div>
             
 
-            <div class="contact-form container " >
+            <div className="contact-form container " >
             
 				<Form id="contact-form" role="form">
                 
@@ -494,7 +494,7 @@ mAutre: mAutre
 		</div>
 		</div>
 
-		<div class="contact-form container " >
+		<div className="contact-form container " >
 			
 				<div className="row">
 <div className="col-md-6 form-group">
@@ -554,19 +554,19 @@ mAutre: mAutre
 			</div>
             
 
-            <div class="contact-form container " >
+            <div className="contact-form container " >
 				
 					<div className="row">
 				<form>
-				<div class="form-check">
-	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value={true}  />
-	 <label class="form-check-label" for="flexRadioDefault2">
+				<div className="form-check">
+	 <Input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value={true}  />
+	 <label className="form-check-label" for="flexRadioDefault2">
 	 Ce projet de coopération financé, mais le titre de transport ne fait pas partie de l'enveloppe budgétaire allouée
 	 </label>
    </div>
-   <div class="form-check">
-	 <Input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value={false} />
-	 <label class="form-check-label" for="flexRadioDefault2">
+   <div className="form-check">
+	 <Input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value={false} />
+	 <label className="form-check-label" for="flexRadioDefault2">
 	 Ce n'est pas dans le cadre d'un projet de Recherche financé
 	 </label>
 	 </div>
@@ -612,7 +612,7 @@ mAutre: mAutre
 			</div>
             
 
-            <div class="contact-form container " >
+            <div className="contact-form container " >
 				
 					<div className="row">
 <div className="col-md-6 form-group">
@@ -622,13 +622,13 @@ mAutre: mAutre
 <div className="col-md-6 form-group">
 <form>
 <div className="radio-buttons">
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="hasBenifited" id="inlineRadio1" value={true}  onChange={onChangeHasAlreadyBenifitedA}/>
-  <label class="form-check-label" for="inlineRadio1">Oui</label>
+<div className="form-check form-check-inline">
+  <input className="form-check-input" type="radio" name="hasBenifited" id="inlineRadio1" value={true}  onChange={onChangeHasAlreadyBenifitedA}/>
+  <label className="form-check-label" for="inlineRadio1">Oui</label>
 </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="hasBenifited" id="inlineRadio2" value={false} onChange={onChangeHasAlreadyBenifitedA}/>
-  <label class="form-check-label" for="inlineRadio2">Non</label>
+<div className="form-check form-check-inline">
+  <input className="form-check-input" type="radio" name="hasBenifited" id="inlineRadio2" value={false} onChange={onChangeHasAlreadyBenifitedA}/>
+  <label className="form-check-label" for="inlineRadio2">Non</label>
 </div>
 </div>
 
@@ -660,13 +660,13 @@ mAutre: mAutre
 </div>
 <div className="col-md-6 form-group">
 <form>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="natureSoutien" id="inlineRadio1" value="soutien total"  onChange={onchangeNatureSoutien}/>
-  <label class="form-check-label" htmlFor="soutien_total">Soutien total</label>
+<div className="form-check form-check-inline">
+  <input className="form-check-input" type="radio" name="natureSoutien" id="inlineRadio1" value="soutien total"  onChange={onchangeNatureSoutien}/>
+  <label className="form-check-label" htmlFor="soutien_total">Soutien total</label>
 </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="natureSoutien" id="inlineRadio2" value="soutien complémentaire" onChange={onchangeNatureSoutien}/>
-  <label class="form-check-label" htmlFor="soutien_complementaire">Soutien complémentaire</label>
+<div className="form-check form-check-inline">
+  <input className="form-check-input" type="radio" name="natureSoutien" id="inlineRadio2" value="soutien complémentaire" onChange={onchangeNatureSoutien}/>
+  <label className="form-check-label" htmlFor="soutien_complementaire">Soutien complémentaire</label>
 </div>
 </form>
 

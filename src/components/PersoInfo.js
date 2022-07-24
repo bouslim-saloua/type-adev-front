@@ -25,7 +25,7 @@ render(){
 			</div>
             
 
-            <div class="contact-form container " >
+            <div className="contact-form container " >
 				<Form id="contact-form" role="form">
 					<div className="row">
 <div className="col-md-6 form-group">

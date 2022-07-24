@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -128,7 +128,7 @@ const Register = (props) => {
           setMessage(response.data.message);
           setSuccessful(true);
          // successNotification();
-         toast.success('success!', {
+         toast.success('Votre compte est enregistré avec succé!', {
           position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,
@@ -267,70 +267,14 @@ const Register = (props) => {
           )}
           {message && (
             <div>
-               <div class="toast">
-          <div class="toast-item">
-            <div class="toast-success">
+               <div className="toast">
+          <div className="toast-item">
+            <div className="toast-success">
             
             </div>
             </div>
             </div>
-                     {
-              /** <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
-                role="alert"
-              >
-                {message}
-              </div>*/
-             } 
-             {/*successful ? 
-<div>
-<Modal  open={true}
-   onClose={this.handleClose}
-   basic
-   size='small'>
-    <Modal.Header closeButton>
-      <Modal.Title>Modal heading</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={handleClose}>
-        Close
-      </Button>
-      <Button variant="primary" onClick={handleClose}>
-        Save Changes
-      </Button>
-    </Modal.Footer>
-  </Modal>
-</div>
- :
- 
-   <div>
-    <Modal  open={true}
-   onClose={handleClose}
-   basic
-   size='small'>
-    <Modal.Header closeButton>
-      <Modal.Title>Modal heading</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={handleClose}>
-        Close
-      </Button>
-      <Button variant="primary" onClick={handleClose}>
-        Save Changes
-      </Button>
-    </Modal.Footer>
-  </Modal>
-</div>
-   
-             
-               
-              
-
-            */}
+                     
             <ToastContainer
 position="bottom-left"
 autoClose={5000}

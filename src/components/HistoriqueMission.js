@@ -2,7 +2,63 @@ import React, {useState, useEffect} from 'react'
 import AuthService from '../services/auth.service';
 import { Link } from 'react-router-dom';
 import MissionService from '../services/mission.service';
+import DocumentService from '../services/document.service';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+  import Paper from '@mui/material/Paper';
+  import Table from '@mui/material/Table';
+  import TableBody from '@mui/material/TableBody';
+  import TableCell from '@mui/material/TableCell';
+  import TableContainer from '@mui/material/TableContainer';
+  import TableHead from '@mui/material/TableHead';
+  import TablePagination from '@mui/material/TablePagination';
+  import TableRow from '@mui/material/TableRow';
 
+const columns=[
+    {
+      id: 'id_mission',
+      label: 'Id',
+     
+     
+    },
+    {
+      id: 'type_demande',
+      label: 'Type de la demande',
+     
+     
+    },
+    {
+      id: 'date_creation',
+      label: 'Date création',
+      
+    
+    },
+    {
+      id: 'intitule',
+      label: 'Intitulé',
+      
+      
+    },
+    {
+      id: 'etat',
+      label: 'Etat',
+      
+      
+    },
+    {
+      id: 'rapport',
+      label: 'Déposer votre rapport',
+      
+      
+    },
+    {
+      id: 'action',
+      label: 'Action',
+      
+      
+    }
+    
+  ]
 const HistoriqueMission=()=>{
     const renderStatus = (param) =>{
         switch(param) {
@@ -25,20 +81,76 @@ const HistoriqueMission=()=>{
             }
             
 
+            const [selectedFiles, setSelectedFiles] = useState(undefined);
+  const [currentFile, setCurrentFile] = useState(null);
+  const libelle ="rapport";
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+  const [message, setMessage] = useState("");
+  
 
     const currentUser = AuthService.getCurrentUser();
 const [missions, setMissions] = useState([]);
 const id = currentUser.id;
+
+const upload = (missionId) => {
+    //let currentFile = selectedFiles[0];
+  //  setProgress(0);
+    setCurrentFile(currentFile);
+    DocumentService.uploadFileMission(libelle,currentFile, missionId)
+      .then((response) => {
+        setMessage(response.data.message);
+       // return UploadService.getFiles();
+       toast.success('file uploaded successfully!', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+      })
+     /* .then((files) => {
+        setFileInfos(files.data);
+      })*/
+      .catch(() => {
+       // setProgress(0);
+        setMessage("Could not upload the file!");
+        toast.error(' Could not upload the selected file', {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+       // setCurrentFile(undefined);
+      });
+  //  setSelectedFiles(undefined);
+  };
 useEffect(()=>{
     getMissions();
 }, [])
 
-
+const selectFile = (event) => {
+    setSelectedFiles(event.target.files);
+  };
 
 const getMissions =()=>{
     MissionService.getMissionsByUserId(id).then((response) =>{
 setMissions(response.data);
-console.log(response.data);
+//console.log(response.data);
     });
 }
 const length = missions.length;
@@ -97,39 +209,71 @@ return (
 	</section>
 
        ):(
-        <table className = "table table-striped">
-        <thead>
-            <tr>
-                <th> Id</th>
-                <th> Type de la Demande</th>
-                <th> Date création</th>
-                <th> Intitulé</th>
-                <th> Etat</th>
-                <th> Déposer votre rapport</th>
-            </tr>
-
-        </thead>
-        <tbody>
-            {
-                missions.map(
-                        mission =>
-                        <tr key = {mission.id}>
-                            <td>{mission.id}</td>
-                            <td> {mission.dateCreation }</td>
-                            <td> mission-stage</td>
-                            <td> {mission.objet }</td>  
-                            <td> {renderStatus(mission.status)}</td>    
-                           <td></td> 
-
-                        </tr>
-
-                )
-            }
-            
-        </tbody>
-
-
-    </table>
+        <div className="table-responsive">
+          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+  <TableContainer sx={{ maxHeight: 440 }}>
+    <Table stickyHeader aria-label="sticky table">
+      <TableHead >
+        <TableRow>
+          {columns.map((column) => (
+            <TableCell
+            class="text-muted"
+              key={column.id}
+              align={column.align}
+              
+            >
+              {column.label}
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {missions
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((row) => {
+            return (
+              <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                 <TableCell>{row.id}</TableCell>
+                 
+                            <TableCell> {row.dateCreation }</TableCell>
+                            <TableCell> mission-stage</TableCell>
+                            <TableCell> {row.objet }</TableCell>  
+                            <TableCell> {renderStatus(row.status)}</TableCell>      
+                           <TableCell>  <label className="btn btn-default">
+        <input type="file" onChange={selectFile} />
+      </label></TableCell> 
+                           <TableCell>
+                          <div className='text-center'>
+                          <button type="button" className="btn btn-outline-success"  disabled={!selectedFiles}
+        onClick={() => upload(row.id)} >Télécharger</button></div></TableCell>
+              </TableRow>
+            );
+          })}
+      </TableBody>
+    </Table>
+  </TableContainer>
+  <TablePagination
+    rowsPerPageOptions={[6, 8, 10]}
+    component="div"
+    count={missions.length}
+    rowsPerPage={rowsPerPage}
+    page={page}
+    onPageChange={handleChangePage}
+    onRowsPerPageChange={handleChangeRowsPerPage}
+  />
+</Paper>
+<ToastContainer
+position="bottom-left"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
+                  </div>
        )}
 
     </div>

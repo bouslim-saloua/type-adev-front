@@ -82,10 +82,10 @@ const HistoriqueManifestation=()=>{
             }
             
             const [selectedFiles, setSelectedFiles] = useState(undefined);
-  const [currentFile, setCurrentFile] = useState(undefined);
+  const [currentFile, setCurrentFile] = useState(null);
   const libelle ="rapport";
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -102,7 +102,7 @@ const [manifestations, setManifestations] = useState([]);
 const id = currentUser.id;
 
 const upload = (manifestationId) => {
-    let currentFile = selectedFiles[0];
+    //let currentFile = selectedFiles[0];
   //  setProgress(0);
     setCurrentFile(currentFile);
     DocumentService.uploadFileManifestation(libelle,currentFile, manifestationId)
@@ -134,9 +134,9 @@ const upload = (manifestationId) => {
             draggable: true,
             progress: undefined,
             });
-        setCurrentFile(undefined);
+       // setCurrentFile(undefined);
       });
-    setSelectedFiles(undefined);
+  //  setSelectedFiles(undefined);
   };
 useEffect(()=>{
     getManifestations()
@@ -261,6 +261,17 @@ return (
     onRowsPerPageChange={handleChangeRowsPerPage}
   />
 </Paper>
+<ToastContainer
+position="bottom-left"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
                   </div>
        )}
 
